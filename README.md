@@ -116,3 +116,16 @@ Completa los métodos marcados con `TODO` siguiendo el orden propuesto y respeta
 - Control del flujo de juego (inicialización, loop principal y cierre limpio).
 - Gestión de colisiones y actualización de puntuación/vidas.
 - Apartado opcional: se valorará positivamente añadir niveles extra, mejoras visuales o efectos de sonido siempre que no rompan la estructura base.
+
+## Declaración sobre el uso de Inteligencia Artificial
+
+En cumplimiento con las directrices de la asignatura, declaramos el uso puntual de herramientas de Inteligencia Artificial Generativa durante el desarrollo de este hito, centrado exclusivamente en el diagnóstico de errores del entorno de ejecución y refinamiento de mecánicas:
+
+1. **Resolución del fallo de renderizado en Windows:**
+   Durante las pruebas iniciales, el juego finalizaba su ejecución de forma silenciosa e instantánea sin llegar a abrir la ventana gráfica en sistemas Windows, a pesar de que la lógica interna y el número de bloques eran procesados correctamente. Mediante la depuración asistida por IA, se identificó que el módulo `arkanoid_core.py` activaba por defecto el controlador de vídeo `"dummy"` (involuntariamente) al no detectar la variable de entorno `DISPLAY`. La solución encontrada consistió en forzar dicha variable al inicio de `arkanoid_game.py`:
+   ```python
+   import os
+   import sys
+
+   if sys.platform != "linux":
+       os.environ.setdefault("DISPLAY", ":0")
